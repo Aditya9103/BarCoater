@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const HomeCertifications = () => {
+const HomeCertifications = ({ locationData }) => {
   return (
     <section className="relative bg-white overflow-hidden">
       {/* Background Split */}
@@ -158,7 +158,7 @@ const HomeCertifications = () => {
                     Global Customer Trust
                   </h4>
                   <p className="text-xs text-gray-900 mt-1">
-                    Preferred by printing companies worldwide
+                    {locationData ? `Trusted by testing facilities in ${locationData.name}` : "Preferred by printing companies worldwide"}
                   </p>
                 </div>
               </div>

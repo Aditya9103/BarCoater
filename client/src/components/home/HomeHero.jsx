@@ -1,6 +1,10 @@
 import React from "react";
 
-const HomeHero = () => {
+const HomeHero = ({ locationData }) => {
+  const locName = locationData?.name;
+  const locState = locationData?.state;
+  const locText = locationData ? `in ${locName}` : "in India";
+
   return (
     <div className="relative bg-gradient-to-r from-blue-50 to-white overflow-hidden pt-8 pb-16 md:pt-12 md:pb-24">
       {/* Background decoration */}
@@ -22,13 +26,13 @@ const HomeHero = () => {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 leading-tight">
               Best <span className="text-blue-600">Bar Coater</span> <br />
               <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-gray-900 font-bold">
-                Manufacturer in India
+                Manufacturer {locText}
               </span>
             </h1>
 
             <p className="text-lg text-gray-900 max-w-xl">
               ImageTech Industries is widely recognized for manufacturing the best
-              Bar Coaters in Delhi and across India. We offer premium
+              Bar Coaters {locationData ? `in ${locName}, ${locState}` : "in Delhi and across India"}. We offer premium
               precision Bar Coaters that ensure uniform coating application
               and accurate laboratory testing for various industrial applications.
             </p>
@@ -170,7 +174,7 @@ const HomeHero = () => {
                   <h4 className="font-semibold text-sm text-gray-900">
                     Reliable Delivery
                   </h4>
-                  <p className="text-xs text-gray-900">PAN India & Global</p>
+                  <p className="text-xs text-gray-900">{locationData ? `Direct to ${locName}` : "PAN India & Global"}</p>
                 </div>
               </div>
               <div className="flex flex-col space-y-2">

@@ -70,11 +70,27 @@ const faqData = [
 
 import { SchemaInjector } from "../common/SEO";
 
-const HomeFAQ = () => {
+const HomeFAQ = ({ locationData }) => {
+  const locName = locationData?.name;
+
+  const dynamicFaqData = faqData.map((faq) => {
+    if (!locName) return faq;
+    if (faq.question === "Do you deliver Bar Coaters across India?") {
+      return {
+        ...faq,
+        answer: faq.answer.replace(
+          "all other major cities in India.",
+          `all other major cities in India, including ${locName}.`
+        ),
+      };
+    }
+    return faq;
+  });
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqData.map((faq) => ({
+    "mainEntity": dynamicFaqData.map((faq) => ({
       "@type": "Question",
       "name": faq.question,
       "acceptedAnswer": {
@@ -88,10 +104,10 @@ const HomeFAQ = () => {
     <>
       <SchemaInjector schema={faqSchema} />
       <FAQSection
-        title="Everything You Need To Know About Bar Coaters"
+        title={`Everything You Need To Know About Bar Coaters ${locName ? `in ${locName}` : ""}`}
         subtitle="Frequently Asked Questions"
         description="Find answers to common questions about our Bar Coaters, testing applications, and technical specifications."
-        faqs={faqData}
+        faqs={dynamicFaqData}
       />
     </>
   );
