@@ -1,7 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const { locationSlug } = useParams();
+  const { pathname } = useLocation();
+  
+  // Helper to maintain city context in links
+  const getProductLink = (productSlug) => {
+    return locationSlug ? `/${locationSlug}/${productSlug}` : `/products/${productSlug}`;
+  };
+
+  const getHomeLink = () => {
+    return locationSlug ? `/${locationSlug}` : `/`;
+  };
+
   return (
     <footer className="bg-white text-gray-900 font-bold border-t border-gray-200 pt-16 mt-auto">
       {/* Top Section */}
@@ -91,7 +103,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm text-gray-900 font-bold font-semibold">
               <li>
                 <Link
-                  to="/"
+                  to={getHomeLink()}
                   className="hover:text-blue-600 flex items-center transition-colors"
                 >
                   <svg
@@ -112,7 +124,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/#about"
+                  to={`${getHomeLink()}#about`}
                   className="hover:text-blue-600 flex items-center transition-colors"
                 >
                   <svg
@@ -196,6 +208,27 @@ const Footer = () => {
                   Contact Us
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/sitemap"
+                  className="hover:text-blue-600 flex items-center transition-colors"
+                >
+                  <svg
+                    className="w-3 h-3 text-blue-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                  Sitemap
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -207,7 +240,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm text-gray-900 font-bold font-semibold">
               <li>
                 <Link
-                  to="/products/bar-coater-small-size"
+                  to={getProductLink("bar-coater-small-size")}
                   className="hover:text-blue-600 flex items-start transition-colors"
                 >
                   <svg
@@ -228,7 +261,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/products/bar-coater-medium-size"
+                  to={getProductLink("bar-coater-medium-size")}
                   className="hover:text-blue-600 flex items-start transition-colors"
                 >
                   <svg
@@ -249,7 +282,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/products/bar-coater-large-size"
+                  to={getProductLink("bar-coater-large-size")}
                   className="hover:text-blue-600 flex items-start transition-colors"
                 >
                   <svg
@@ -270,7 +303,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/products/bar-coater-extra-large-size"
+                  to={getProductLink("bar-coater-extra-large-size")}
                   className="hover:text-blue-600 flex items-start transition-colors"
                 >
                   <svg
